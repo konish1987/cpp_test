@@ -14,3 +14,10 @@ $(TARGET): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
+
+# Download Catch2 header if not present
+catch.hpp:
+	curl -L https://github.com/catchorg/Catch2/releases/download/v2.13.10/catch.hpp -o catch.hpp
+
+test: test_main.cpp catch.hpp module1.cpp module2.cpp
+	$(CXX) $(CXXFLAGS) test_main.cpp -o test && ./test
